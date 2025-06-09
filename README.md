@@ -11,21 +11,37 @@ Debes crear un smart contract y desplegarlo desde tu propia dirección.
 - Así mismo una URL del repositorio público en Github.
 
 ⚙️ Funcionalidades Requeridas
+# contract Auction
+
 - 📦 Constructor
   - Inicializa la subasta con los parámetros necesarios para su funcionamiento.
+  ### constructor (uint256 bidTime)
+    
 - 🏷️ Función para ofertar
   - Permite a los participantes ofertar por el artículo.
   - Una oferta es válida si:
     - Es mayor en al menos 5% que la mayor oferta actual.
     - Se realiza mientras la subasta está activa.
+  ### // sendBid: send a new bid for auction
+  ### function sendBid() external payable isAuctionActive
+      
 - 🥇 Mostrar ganador
   - Devuelve el oferente ganador y el valor de la oferta ganadora.
+  ### // getWinner: return winner and amount
+  ### function getWinner() external view isAuctionFinished returns (address)
+    
 - 📜 Mostrar ofertas
   - Devuelve la lista de oferentes y sus respectivos montos ofrecidos.
+  ### // getBids: return lists of biders and amounts
+  ### function getBids() external view returns (address[] memory, uint256[] memory)
+
+
 - 💸 Devolver depósitos
   - Al finalizar la subasta:
     - Se devuelve el depósito a los oferentes no ganadores.
     - Se descuenta una comisión del 2%.
+  ### // returnBids: return bid's amount to biders that do not win
+  ### function returnBids() internal isAuctionFinished
 
 💰 Manejo de depósitos
   - Las ofertas deben:
@@ -35,6 +51,9 @@ Debes crear un smart contract y desplegarlo desde tu propia dirección.
 📢 Eventos requeridos
   - Nueva Oferta: Emitido cuando se realiza una nueva oferta.
   - Subasta Finalizada: Emitido cuando finaliza la subasta.
+  ### // events
+  ### event newBid(address indexed bider, uint256 amount);
+  ### event IsAuctionFinished(address indexed bider, uint256 amount);
 
 🚀 Funcionalidades Avanzadas
 🔁 Reembolso parcial
@@ -48,8 +67,15 @@ Tiempo	Usuario	Oferta
 - T2	Usuario 1	3 ETH
 - → Usuario 1 puede pedir el reembolso de la oferta T0 (1 ETH).
 
+### // withdrawDeposit: for a bider, keep the last bid and withdraw the previous amount
+### function withdrawDeposit() external isAuctionFinished 
+
 🧠 Consideraciones Adicionales
 - Se deben utilizar modificadores cuando sea conveniente.
+  ### modifier onlyOwner()
+  ### modifier isAuctionActive()
+  ### modifier isAuctionFinished()
+
 - Para superar la mejor oferta, la nueva debe ser superior al menos en 5%.
 - Si una oferta válida se realiza dentro de los últimos 10 minutos, el plazo de la subasta se extiende 10 minutos más.
 - El contrato debe ser seguro y robusto. Manejando adecuadamente los errores y las posibles situaciones excepcionales.

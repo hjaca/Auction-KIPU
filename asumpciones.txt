@@ -1,0 +1,17 @@
+Fui desarrollando siguiendo la guia del campus
+1- para oferta valida 
+    - valido que la subasta este activa y no haya finalizado el tiempo
+    - comparo si es superior a la mayor oferta en un 5% con la sig. formula
+        msg.value > bidHighestBid * 105 / 100
+2- para devolver las ofertas que no ganaron, 
+    - se descuenta comision del 2% con la sig. formula
+        payable(_bider).transfer(_amount * 98 / 100);
+3- se permiten 10min adicionales en caso de llegar una oferta valida 
+    y quedan menos de 10min de tiempo disponible
+4- un ofertante puede retirar el exedente de las ofertas anteriores que realizo, 
+    quedando solo la ultima oferta realizada
+5- hay 2 eventos
+    - nueva oferta
+    - fin de subasta
+6- la documentacion en el repo llegue a copiar el enunciado, 
+    no llegue a poner todos los noombres de las funciones

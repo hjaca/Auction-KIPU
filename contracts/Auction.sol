@@ -91,13 +91,13 @@ contract Auction {
         }
     }
 
-    // showWinner: print winner and amount
+    // getWinner: returns winner and amount
     function getWinner() external view isAuctionFinished returns (address) {
 //      require(IsAuctionFinished, "Winner can be shown after auction is finished");
         return bidHighestBider;    
     }
 
-    // showBidList: print the list of biders and amounts
+    // getBids: returns lists of biders and amounts
     function getBids() external view returns (address[] memory, uint256[] memory) {
         uint256 _biders = bidBiders.length;
         uint256[] memory _bidAmount = new uint256[](_biders);
@@ -110,7 +110,7 @@ contract Auction {
         return (_bidBiders, _bidAmount);
     }
 
-    // showBidList: print the list of biders and amounts
+    // getHighestBid: returns highest bid
     function getHighestBid() external view returns (uint256) {
         return bidHighestBid;
     }

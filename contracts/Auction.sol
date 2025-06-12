@@ -25,8 +25,6 @@ contract Auction {
     uint256 public starTime;
     uint256 public endTime;
     uint256 public bidHighestBid;
-    uint256 public bidMinPercent2;
-    uint256 public bidMinPercent;
 
     bool public isActive;
 
@@ -74,16 +72,16 @@ contract Auction {
             bidHighestBider = msg.sender;
         }
 
+        // it's first bid of sender then add to bidBiders 
+        if (bidsList[msg.sender] == 0) {
+            bidBiders.push(msg.sender);
+        }
+
         // save bid in list and generate event
         bidsList[msg.sender] = msg.value;
         bidsAmount[msg.sender] += msg.value;
 
         emit newBid(msg.sender, msg.value);
-
-        // it's first bid of sender
-        if (bidsList[msg.sender] == 0) {
-            bidBiders.push(msg.sender);
-        }
 
         // leave 10 min for other bids
         if (endTime <= block.timestamp + 10 minutes) {
@@ -144,6 +142,7 @@ contract Auction {
         emit IsAuctionFinished(bidHighestBider, bidHighestBid);
         
         returnBids();
+        sendBalanceToOwner();
     }
 
     // withdrawDeposit: for a bider, keep the last bid and withdraw the previous amount

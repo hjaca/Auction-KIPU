@@ -46,8 +46,11 @@
 ![alt text](image-13.png)
 
 ## 6- finalizar la Subasta
-### primero la ejecuto con un address incorrecto, luego con el address owner
+### 6.1 primero la ejecuto con un address incorrecto, luego con el address owner
 ![alt text](image-14.png)
+
+### 6.2 veo en el log que realiza el emit con los datos del ganador (address, $)
+![alt text](image-20.png)
 
 ## 7- pruebas de funciones / variables / estructuras despues de finalizar la Subasta
 ### 7.1 isActive muestra que no esta activa
